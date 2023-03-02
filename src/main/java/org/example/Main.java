@@ -1,12 +1,18 @@
 package org.example;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         Commander cm = new Commander();
         String s;
-        
+        cm.load();
         while(true) {
             s = cm.wait_command();
             if (s.equals("등록")) {
@@ -19,6 +25,7 @@ public class Main {
                 cm.edit(s);
             }
             else if(s.equals("종료")){
+                cm.save();
                 break;
             }
         }
@@ -30,12 +37,13 @@ class Commander {
     private Scanner sc;
     private int i;
     private HashMap<Integer, 명언> 명언모음;
-
+    private File saveFile;
 
     Commander() {
         this.sc = new Scanner(System.in);
         this.i = 1;
         this.명언모음 = new HashMap<>();
+        this.saveFile = new File("명언.txt");
         System.out.println("== 명언 앱 ==");
     }
 
@@ -47,8 +55,35 @@ class Commander {
 
     
     private String _print_and_wait(String notice) {
-        System.out.println(notice);
+        System.out.print(notice);
         return sc.nextLine();
+    }
+
+
+    public void save() throws IOException {
+        if (!saveFile.exists()) {
+            saveFile.createNewFile();
+        }
+        BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile));
+        for (Integer key : 명언모음.keySet()) {
+            bw.write(key + " / " + 명언모음.get(key));
+            bw.newLine();
+        }
+        bw.close();
+    }
+
+
+    public void load() throws IOException {
+        if (!saveFile.exists()) {
+            return;
+        }
+        BufferedReader br = new BufferedReader(new FileReader(saveFile));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] readLine = line.split(" / ");
+            명언모음.put(Integer.parseInt(readLine[0]), new 명언(readLine[1], readLine[2]));
+        }
+        br.close();
     }
 
 
