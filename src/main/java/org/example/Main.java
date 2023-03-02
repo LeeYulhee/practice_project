@@ -41,13 +41,15 @@ public class Main {
             } else if(s.startsWith("삭제")){
                 String 삭제임시번호 = s.replaceAll("[^0-9]","");
                 int 삭제번호 = Integer.parseInt(삭제임시번호);
-                명언모음.remove(삭제번호);
-                System.out.println(삭제번호 +"번 명언이 삭제되었습니다.");
+                if(명언모음.get(삭제번호) != null) {
+                    명언모음.remove(삭제번호);
+                    System.out.println(삭제번호 + "번 명언이 삭제되었습니다.");
+                }else if(명언모음.get(삭제번호) == null){
+                    System.out.println(삭제번호 + "번 명언은 존재하지 않습니다.");
+                }
                 System.out.print("명령 ) ");
                 s = sc.nextLine().trim();
-            }
-//
-            else if(s.equals("종료")){
+            } else if(s.equals("종료")){
                 break;
             }
         }
