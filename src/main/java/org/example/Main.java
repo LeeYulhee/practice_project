@@ -11,5 +11,15 @@ public class Main {
         System.out.print("명령 ) ");
         String s = sc.nextLine();
 
+        String update = "등록";
+
+        if(s.equals(update)){
+            System.out.print("명언 : ");
+            sc.nextLine();
+            System.out.print("작가 : ");
+            sc.nextLine();
+            System.out.print("명령 ) ");
+            sc.nextLine();
+        }
     }
 }
