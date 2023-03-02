@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +15,7 @@ public class Main {
 
         String s = sc.nextLine().trim();
 
-        ArrayList<명언> 명언모음 = new ArrayList<>();
+        HashMap<Integer, 명언> 명언모음 = new HashMap<>();
 
         while(true) {
             if (s.equals("등록")) {
@@ -24,7 +23,7 @@ public class Main {
                 String wiseSaying = sc.nextLine();
                 System.out.print("작가 : ");
                 String writter = sc.nextLine();
-                명언모음.add(new 명언(i, writter, wiseSaying));
+                명언모음.put(i, new 명언(writter, wiseSaying));
                 System.out.println(i + "번 명언이 등록되었습니다.");
                 i++;
                 System.out.print("명령 ) ");
@@ -32,18 +31,22 @@ public class Main {
             } else if(s.equals("목록")){
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
-                for(int a = 명언모음.size() -1; a < 명언모음.size() && a >= 0; a--){
-                    System.out.println(명언모음.get(a));
-                }
+                List <Integer> keySet = new ArrayList<>(명언모음.keySet());
+                Collections.reverse(keySet);
+                    for (Integer key : keySet) {
+                        System.out.println(key + " : " + 명언모음.get(key));
+                    }
                 System.out.print("명령 ) ");
                 s = sc.nextLine().trim();
-            } else if(s.equals("삭제?id=1")){
-                명언모음.remove(0);
-                System.out.println("1번 명언이 삭제되었습니다.");
+            } else if(s.startsWith("삭제")){
+                String 삭제임시번호 = s.replaceAll("[^0-9]","");
+                int 삭제번호 = Integer.parseInt(삭제임시번호);
+                명언모음.remove(삭제번호);
+                System.out.println(삭제번호 +"번 명언이 삭제되었습니다.");
                 System.out.print("명령 ) ");
                 s = sc.nextLine().trim();
             }
-
+//
             else if(s.equals("종료")){
                 break;
             }
@@ -52,17 +55,15 @@ public class Main {
 }
 
 class 명언{
-    int num;
     String writter;
     String wiseSaying;
-    명언(int num, String writter, String wiseSaying){
-        this.num = num;
+    명언(String writter, String wiseSaying){
         this.writter = writter;
         this.wiseSaying = wiseSaying;
     }
 
     @Override
     public String toString() {
-        return num + " / " + writter  + " / " + wiseSaying;
+        return writter  + " / " + wiseSaying;
     }
 }
