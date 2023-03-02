@@ -34,7 +34,7 @@ public class Main {
                 List <Integer> keySet = new ArrayList<>(명언모음.keySet());
                 Collections.reverse(keySet);
                     for (Integer key : keySet) {
-                        System.out.println(key + " : " + 명언모음.get(key));
+                        System.out.println(key + " / " + 명언모음.get(key));
                     }
                 System.out.print("명령 ) ");
                 s = sc.nextLine().trim();
@@ -49,7 +49,20 @@ public class Main {
                 }
                 System.out.print("명령 ) ");
                 s = sc.nextLine().trim();
-            } else if(s.equals("종료")){
+            } else if(s.startsWith("수정")){
+                String 수정임시번호 = s.replaceAll("[^0-9]","");
+                int 수정번호 = Integer.parseInt(수정임시번호);
+                System.out.println("명언(기존) : " + 명언모음.get(수정번호).wiseSaying);
+                System.out.print("명언 : ");
+                String wiseSaying = sc.nextLine();
+                System.out.println("작가(기존) : " + 명언모음.get(수정번호).writter);
+                System.out.print("작가 : ");
+                String writter = sc.nextLine();
+                명언모음.put(수정번호, (new 명언(writter, wiseSaying)));
+                System.out.print("명령 ) ");
+                s = sc.nextLine().trim();
+            }
+            else if(s.equals("종료")){
                 break;
             }
         }
