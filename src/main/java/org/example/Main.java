@@ -28,15 +28,23 @@ public class Main {
                 System.out.println(i + "번 명언이 등록되었습니다.");
                 i++;
                 System.out.print("명령 ) ");
-                s = sc.nextLine();
+                s = sc.nextLine().trim();
             } else if(s.equals("목록")){
+                System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
                 for(int a = 명언모음.size() -1; a < 명언모음.size() && a >= 0; a--){
                     System.out.println(명언모음.get(a));
                 }
                 System.out.print("명령 ) ");
-                s = sc.nextLine();
-            } else if(s.equals("종료")){
+                s = sc.nextLine().trim();
+            } else if(s.equals("삭제?id=1")){
+                명언모음.remove(0);
+                System.out.println("1번 명언이 삭제되었습니다.");
+                System.out.print("명령 ) ");
+                s = sc.nextLine().trim();
+            }
+
+            else if(s.equals("종료")){
                 break;
             }
         }
