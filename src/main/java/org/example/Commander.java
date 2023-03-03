@@ -78,9 +78,9 @@ public class Commander {
 
 
     public void enroll() {
-        String wiseSaying = _print_and_wait("명언 : ");
-        String writter = _print_and_wait("작가 : ");
-        명언모음.put(i, new 명언(i, writter, wiseSaying));
+        String content = _print_and_wait("명언 : ");
+        String author = _print_and_wait("작가 : ");
+        명언모음.put(i, new 명언(i, author, content));
         System.out.println(i + "번 명언이 등록되었습니다.");
         i++;
     }
@@ -118,10 +118,10 @@ public class Commander {
         }
         명언 수정대상 = 명언모음.get(수정번호);
         System.out.println("명언(기존) : " + 수정대상.getContent());
-        String wiseSaying = _print_and_wait("명언 : ");
+        String content = _print_and_wait("명언 : ");
         System.out.println("작가(기존) : " + 수정대상.getAuthor());
-        String writter = _print_and_wait("작가 : ");
-        수정대상.setContent(wiseSaying);
-        수정대상.setAuthor(writter);
+        String author = _print_and_wait("작가 : ");
+        수정대상.setContent(content);
+        수정대상.setAuthor(author);
     }
 }
